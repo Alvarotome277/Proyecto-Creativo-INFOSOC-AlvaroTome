@@ -40,7 +40,7 @@ int main()
         {
             if (strcmp(candidatos[j].nombre, candidatos[i].nombre) == 0)
             {
-                printf("  ¡Candidato ya registrado! Intentalo de nuevo.\n");
+                printf("  Candidato ya registrado, Intentalo de nuevo.\n");
                 encontrado = 1;
                 break;
             }
@@ -114,7 +114,7 @@ int main()
     }
     if (n_ganadores > 1)
     {
-        printf("Hay un empate entre %d candidatos!\n", n_ganadores);
+        printf("Hay un empate entre %d candidatos \n", n_ganadores);
     }
     return 0;
 }
