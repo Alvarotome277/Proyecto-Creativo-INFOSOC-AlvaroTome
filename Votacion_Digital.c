@@ -14,7 +14,8 @@ typedef struct
 int main()
 {
     Candidato candidatos[MAX_CANDIDATOS];
-    int i, j, encontrado = 0;
+    long i, j;
+    int encontrado = 0;
     char candidato_temp[MAX_WORD];
     long n_candidatos = MAX_CANDIDATOS + 1, n_votantes = MAX_VOTANTES + 1;
 
