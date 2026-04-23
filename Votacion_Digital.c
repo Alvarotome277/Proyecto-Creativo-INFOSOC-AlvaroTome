@@ -23,15 +23,16 @@ int main()
     {
         printf("Introduce el numero de candidatos (1 - %d): ", MAX_CANDIDATOS);
         scanf(" %ld", &n_candidatos);
-        if (n_candidatos > MAX_CANDIDATOS || n_candidatos <= 0){
+        if (n_candidatos > MAX_CANDIDATOS || n_candidatos <= 0)
+        {
             printf("El numero debe estar entre 1 y %d.\n", MAX_CANDIDATOS);
         }
     }
 
     for (i = 0; i < n_candidatos; i++)
     {
-        printf("Introduce el nombre del candidato %d: ", i + 1);
-        scanf(" %s", candidatos[i].nombre);
+        printf("Introduce el nombre del candidato %ld: ", i + 1);
+        scanf(" %99s", candidatos[i].nombre);
         candidatos[i].votos = 0;
 
         encontrado = 0;
@@ -49,7 +50,6 @@ int main()
         {
             i--;
         }
-
         else
         {
             printf("  '%s' registrado correctamente.\n", candidatos[i].nombre);
@@ -71,8 +71,8 @@ int main()
         encontrado = 0;
         while (!encontrado)
         {
-            printf("Votante %d, introduce el nombre de tu candidato: ", i + 1);
-            scanf(" %s", candidato_temp);
+            printf("Votante %ld, introduce el nombre de tu candidato: ", i + 1);
+            scanf(" %99s", candidato_temp);
             for (j = 0; j < n_candidatos; j++)
             {
                 if (strcmp(candidato_temp, candidatos[j].nombre) == 0)
@@ -90,54 +90,31 @@ int main()
         }
     }
 
-    printf("\n========== RESULTADOS ==========\n");
-
-    for (i = 0; i < n_candidatos - 1; i++)
-    {
-        for (j = 0; j < n_candidatos - 1 - i; j++)
-        {
-            if (candidatos[j].votos < candidatos[j + 1].votos)
-            {
-                Candidato temp = candidatos[j];
-                candidatos[j] = candidatos[j + 1];
-                candidatos[j + 1] = temp;
-            }
-        }
-    }
-
+    long max_votos = 0;
     for (i = 0; i < n_candidatos; i++)
     {
-        printf("  %d. %-20s %ld votos\n", i + 1, candidatos[i].nombre, candidatos[i].votos);
+        if (candidatos[i].votos > max_votos)
+            max_votos = candidatos[i].votos;
     }
 
-    printf("\n=================================\n");
-    long max_votos = candidatos[0].votos;
+    printf("\nResultados:\n");
+    for (i = 0; i < n_candidatos; i++)
+    {
+        printf("%s: %ld votos\n", candidatos[i].nombre, candidatos[i].votos);
+    }
+    printf("\nGanador/es:\n");
     int n_ganadores = 0;
     for (i = 0; i < n_candidatos; i++)
     {
         if (candidatos[i].votos == max_votos)
         {
+            printf("%s con %ld votos\n", candidatos[i].nombre, max_votos);
             n_ganadores++;
         }
-        else
-        {
-            break;
-        }
     }
-
-    if (n_ganadores == 1)
+    if (n_ganadores > 1)
     {
-        printf("  GANADOR: %s con %ld votos.\n", candidatos[0].nombre, max_votos);
+        printf("Hay un empate entre %d candidatos!\n", n_ganadores);
     }
-    else
-    {
-        printf("  EMPATE entre %d candidatos con %ld votos:\n", n_ganadores, max_votos);
-        for (i = 0; i < n_ganadores; i++)
-        {
-            printf("    - %s\n", candidatos[i].nombre);
-        }
-    }
-    printf("=================================\n");
-
     return 0;
 }
